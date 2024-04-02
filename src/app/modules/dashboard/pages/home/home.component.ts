@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Product } from '../../Products';
 import { DashboardService } from '../../services/dashboard.service';
 import { AuthService } from './../../../auth/services/auth.service';
@@ -13,7 +14,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dashboardService.getProducts().subscribe({
@@ -28,6 +34,9 @@ export class HomeComponent implements OnInit {
   }
 
   closeSession() {
-    localStorage.clear();
+    this.authService.logOut();
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, 200);
   }
 }
