@@ -1,0 +1,9 @@
+<p>home works!</p>
+
+<button mat-button (click)="closeSession()">Cerrar Sesion</button>
+
+@for (product of products; track product.id) {
+<li>{{ product.name }}</li>
+} @empty {
+<li>There are no items.</li>
+}
